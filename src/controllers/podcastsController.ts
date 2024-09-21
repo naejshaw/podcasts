@@ -2,19 +2,19 @@ import {IncomingMessage, ServerResponse} from 'http'
 import { serviceListEpisodes } from '../services/listEpisodesService'
 import { serviceFilterEpisodes } from '../services/filterEpisodesService'
 import { serviceRegisterEpisodes } from '../services/registerEpisodesService'
-import { StatusCode } from '../utils/statusCode'
 import { ContentType } from '../utils/contentType'
-import { FilterPodcastModel } from '../models/filterPodcastModel'
+import { PodcastDTOModel } from '../models/PodcastDTOModel'
 
 export const getListEpisodes = async (
     req: IncomingMessage, 
     res: ServerResponse
 ) => {
 
-    const content = await serviceListEpisodes()
+    const content: PodcastDTOModel = await serviceListEpisodes()
 
-    res.writeHead(StatusCode.OK, {'Content-Type': ContentType.JSON})
-    res.end(JSON.stringify(content))
+    res.writeHead(content.statusCode, {'Content-Type': ContentType.JSON})
+    res.write(JSON.stringify(content.body))
+    res.end()
 }
 
 export const getFilterEpisodes = async (
@@ -22,7 +22,8 @@ export const getFilterEpisodes = async (
     res: ServerResponse
 ) => {
 
-    const content: FilterPodcastModel = await serviceFilterEpisodes(req.url)
+    const content: PodcastDTOModel = await serviceFilterEpisodes(req.url)
     res.writeHead(content.statusCode, {'Content-Type': ContentType.JSON})
-    res.end(JSON.stringify(content.body))
+    res.write(JSON.stringify(content.body))
+    res.end()
 }
