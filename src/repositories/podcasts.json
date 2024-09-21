@@ -10,7 +10,17 @@
         ]
     },
     {
-        "podcastName": "nome do podcast",
+        "podcastName": "podcast",
+        "episode": "nome do episódio",
+        "videoId": "id do video",
+        "categories": [
+            "nome da categoria",
+            "nome da categoria",
+            "nome da categoria"
+        ]
+    },
+    {
+        "podcastName": "teste",
         "episode": "nome do episódio",
         "videoId": "id do video",
         "categories": [
